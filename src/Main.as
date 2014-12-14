@@ -7,7 +7,14 @@ package
 	{
 		public function Main()
 		{
-			trace("Hello world!")
+			trace("Hello world!");
+			
+			graphics.lineStyle(2, 0xeeeeee);
+			graphics.beginFill(0xff0000);
+			graphics.drawRect(10, 10, 100, 100);
+			graphics.endFill();
+			x = 20;
+			y = 20;
 		}
 	}
 }
