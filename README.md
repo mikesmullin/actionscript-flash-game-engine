@@ -1,4 +1,4 @@
-ActionScript 3.0 Flash 11 Game Engine
+ActionScript 3 Flash 16 Game Engine
 =========================
 
 Ported from my [CoffeeScript+Node.JS Game Engine](https://github.com/mikesmullin/coffee-canvas-game-engine),
