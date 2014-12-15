@@ -1,9 +1,11 @@
 package components
 {
+	import flash.display.Sprite;
 	import lib.Vector3;
 
 	public class MeshRenderer
 	{
+		public var enabled:Boolean;
 		public var object:Behavior;
 		public var materials:Vector.<Object> = new Vector.<Object>();
 		
@@ -13,18 +15,20 @@ package components
 		public var vcount:Vector.<int>;
 		public var indices:Vector.<int>;
 		
-		public function MeshRenderer(object:Behavior)
+		public function MeshRenderer(object:Behavior):void
 		{
+			this.enabled = true;
 			this.object = object;
-			
-//			graphics.clear();
-			
-//			graphics.lineStyle(2, 0xeeeeee);
-//			graphics.beginFill(0xff0000);
-//			graphics.drawRect(10, 10, 100, 100);
-//			graphics.endFill();
-//			x = 20;
-//			y = 20;
+		}
+		
+		public function draw(engine:Engine):void {
+			var stage:Sprite = this.object.engine.stage;
+			stage.graphics.lineStyle(2, 0xeeeeee);
+			stage.graphics.beginFill(0xff0000);
+			stage.graphics.drawRect(10, 10, 100, 100);
+			stage.graphics.endFill();
+			stage.x = 20;
+			stage.y = 20;
 		}
 	}
 }

@@ -3,6 +3,7 @@ package
 	import flash.display.Sprite;
 	
 	import components.Behavior;
+	import components.Script;
 	
 	import lib.Input;
 	import lib.Time;
@@ -170,6 +171,24 @@ package
 		{
 			args.unshift(this);
 			this[event].apply(this, args);
+			for each (var obj:Behavior in this.objects) {
+				if (!obj.enabled) {
+					continue;
+				}
+				if (event in obj) {
+					obj[event].apply(obj, args);
+				}
+				for each (var component:String in ['renderer', 'collider']) {
+					if (component in obj && obj[component].enabled && event in obj[component]) {
+						obj[component][event].apply(obj[component], args);
+					}
+				}
+				for each (var script:Script in obj.scripts) {
+					if (script.enabled && event in script) {
+						script[event].apply(script, args);
+					}
+				}
+			}
 		}
 		
 		public function triggerObjectSync(event:String, obj:Behavior, ... args):void
