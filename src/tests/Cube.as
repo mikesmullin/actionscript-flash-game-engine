@@ -1,4 +1,4 @@
-package scripts
+package tests
 {
 	import components.Behavior;
 	import components.MeshRenderer;
@@ -6,16 +6,12 @@ package scripts
 	import lib.Vector3;
 	import lib.GMathf;
 	
-	public class Game extends Behavior
+	public class Cube extends Behavior
 	{
-		public var facing:Number;
-		public var flashlightConeAngle:Number;
-		public var flashlightRange:int;
-		
-		public function Game()
+		public function Cube()
 		{
 			super();
-			this.name = 'Game';
+			this.name = 'Cube';
 			this.transform = new Transform(this);
 			this.renderer = new MeshRenderer(this);
 			this.renderer.materials = new <Object>[{
@@ -32,26 +28,17 @@ package scripts
 			this.renderer.vcount = new <int>[4];
 			this.renderer.indices = new <int>[0, 0, 1, 0, 2, 0, 3, 0];
 			
-			this.transform.position = new Vector3(300, 300, 0);
-			this.transform.localScale = new Vector3(20, 20, 0);
-			this.transform.rotation = new Vector3(0, 0, 0);
-			//this.renderer.width = 20;
-			//this.renderer.height = 20;
-			
-			this.facing = 130;
-			this.flashlightConeAngle = 60;
-			this.flashlightRange = 100;
-		}
-		
-		public function setFacing(angle:Number):void
-		{
-			this.facing = GMathf.repeat(angle, 360);
+			this.transform.position = new Vector3(100, 100, 0);
+			this.transform.localScale = new Vector3(100, 100, 0);
 		}
 		
 		override public function update(engine:Engine):void
 		{
-			
-			
+			this.transform.position.x = GMathf.oscillate(4, 3, this.transform.position.x, engine.time);
+			this.transform.position.y = GMathf.oscillate(2, 5, this.transform.position.y, engine.time);
+			this.transform.localScale.x = GMathf.oscillate(2, 5, this.transform.localScale.x, engine.time);
+			this.transform.localScale.y = GMathf.oscillate(2, 5, this.transform.localScale.y, engine.time);
+			this.transform.rotation.x = GMathf.oscillate(2, 3, 0, engine.time);
 		}
 		
 		override public function finalUpdate(engine:Engine):void

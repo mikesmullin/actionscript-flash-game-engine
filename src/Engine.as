@@ -4,18 +4,21 @@ package
 	
 	import components.Behavior;
 	import components.Script;
-	
 	import lib.Input;
 	import lib.Time;
+	import flash.display.BitmapData;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
+	import flash.text.TextFieldAutoSize;
 
 	public class Engine //implements IComponent
 	{
 		public var objects:Vector.<Behavior>;
 		public var stage:Sprite;
 		public var started:int;
-		public var time:int;
+		public var time:Number;
 		public var running:Boolean;
-		public var fps:int = 24;
+		public var fps:int = 60;
 		public var actualFPS:int;
 		public var deltaTime:Number;
 		
@@ -31,8 +34,24 @@ package
 			trace(msg);
 		}
 		
-		public function info(msg:String, lines:int, color:String, size:int):void
+		public function info(msg:String, line:int, color:uint, size:int):void
 		{
+			this.stage.graphics.lineStyle(0);
+			var txt:TextField = new TextField();
+			var fmt:TextFormat = new TextFormat();
+			//txt.autoSize = TextFieldAutoSize.LEFT;
+			fmt.size = size;
+			txt.defaultTextFormat = fmt;
+			txt.textColor = color;
+			txt.text = msg;
+			var bd:BitmapData = new BitmapData(txt.width, txt.height, true, 0x000000ff);
+			bd.draw(txt);
+			this.stage.graphics.beginBitmapFill(bd);
+			var x:Number, y:Number;
+			x = 900 - txt.width - 10;
+			y = 10;
+			this.stage.graphics.drawRect(x, y, txt.width, txt.height);
+			this.stage.graphics.endFill();
 			//trace(msg);
 		}
 		
@@ -154,7 +173,7 @@ package
 		
 		public function drawGUI(engine:Engine):void
 		{
-			this.info(this.actualFPS.toString(), 1, 'lime', 45);
+			this.info(this.actualFPS.toString(), 1, 0x00ff00, 45);
 		}
 		
 		public function stop(engine:Engine):void
